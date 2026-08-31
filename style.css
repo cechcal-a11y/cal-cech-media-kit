@@ -13,7 +13,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: var(--bg);
+  background: var(--bg) url('assets/topo-bg.svg') repeat;
+  background-size: 1400px 1000px;
   color: var(--text);
   font-family: 'Manrope', sans-serif;
   line-height: 1.6;
@@ -178,7 +179,7 @@ mark {
 /* Stats */
 .stat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 .stat-card {
@@ -189,6 +190,20 @@ mark {
 }
 .stat-card strong { font-family: 'Sora', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--lime); display: block; }
 .stat-label { color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.stat-card:nth-child(4) {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 32px 24px;
+}
+.stat-card:nth-child(4) .dash-header { justify-content: center; }
+.stat-card:nth-child(4) strong { font-size: 3.4rem; }
+
+@media (max-width: 700px) {
+  .stat-grid { grid-template-columns: 1fr; }
+  .stat-card:nth-child(4) { grid-column: auto; padding: 24px; }
+  .stat-card:nth-child(4) strong { font-size: 2.4rem; }
+}
 
 /* Featured Content */
 #content h2 { margin-bottom: 32px; max-width: 640px; }
@@ -227,8 +242,8 @@ mark {
   box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.7);
 }
 .pill-logo {
-  width: 66px;
-  height: 66px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   background: rgba(200, 245, 62, 0.12);
   color: var(--lime);
@@ -243,7 +258,7 @@ mark {
   overflow: hidden;
 }
 .pill-logo.has-logo { background: #fff; border-color: rgba(255, 255, 255, 0.4); }
-.pill-logo img { width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }
+.pill-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; box-sizing: border-box; }
 .pill-text { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0; }
 .pill-name { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.35rem; }
 .pill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -299,10 +314,20 @@ mark {
 .quote-attr { margin-top: 16px; font-size: 0.9rem; color: var(--text-dim); }
 
 /* Contact */
+#contact {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .contact-inner { text-align: center; }
-.contact-inner h2 { margin-bottom: 12px; }
-.contact-inner p { color: var(--text-dim); margin-bottom: 32px; }
-.site-footer { text-align: center; padding: 24px 0 8px; color: var(--text-dim); font-size: 0.85rem; }
+.contact-inner h2 { margin-bottom: 12px; font-size: clamp(2rem, 5vw, 3.2rem); }
+.contact-inner p { color: var(--text-dim); margin-bottom: 32px; font-size: clamp(1rem, 2vw, 1.15rem); }
+.site-footer { margin-top: auto; text-align: center; padding: 24px 0 8px; color: var(--text-dim); font-size: 0.85rem; }
+
+@media (max-width: 480px) {
+  #contact { min-height: 100svh; }
+}
 
 /* Mobile polish */
 @media (max-width: 480px) {
