@@ -3,8 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cal Cech | TikTok Shop Affiliate Marketer &amp; Content Creator</title>
-<meta name="description" content="Cal Cech — TikTok Shop affiliate marketer with 28.1K followers, 40M+ views, and $100K+ in generated revenue for brand partners.">
+<title>Cal Cech | Content Creator &amp; Creative Strategist</title>
+<meta name="description" content="Cal Cech — content creator and creative strategist with 40M+ views and $100K+ in creator revenue generated, plus agency experience scaling a TikTok Shop network to $3M+ in affiliate GMV.">
+
+<!-- Favicon — inline SVG reusing the hero's lime checkmark motif (.verify-check),
+     with its colors hardcoded since a favicon can't reach the page's CSS. -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23C8F53E'/%3E%3Cpath d='M7 12.5l3 3 7-7' fill='none' stroke='%231E2127' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<!-- Structured data (schema.org Person) — helps search engines render Cal's name,
+     role, and TikTok profile correctly in results. Mirrors the meta description
+     above; update alongside it if positioning copy changes. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Cal Cech",
+  "jobTitle": "Content Creator & Creative Strategist",
+  "description": "Content creator and creative strategist with 40M+ views and $100K+ in creator revenue generated, plus agency experience scaling a TikTok Shop network to $3M+ in affiliate GMV.",
+  "image": "https://cechcal-a11y.github.io/cal-cech-media-kit/assets/headshot.jpg",
+  "email": "mailto:cechcal@gmail.com",
+  "sameAs": ["https://www.tiktok.com/@findproproducts"]
+}
+</script>
 
 <!-- CANONICAL URL — PLACEHOLDER: swap for the real deployed URL once Cal confirms
      custom domain vs. GitHub Pages default (github.com/cechcal-a11y/cal-cech-media-kit
@@ -17,12 +37,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cal Cech">
 <meta property="og:url" content="https://cechcal-a11y.github.io/cal-cech-media-kit/">
-<meta property="og:title" content="Cal Cech | TikTok Shop Affiliate Marketer &amp; Content Creator">
-<meta property="og:description" content="Cal Cech — TikTok Shop affiliate marketer with 28.1K followers, 40M+ views, and $100K+ in generated revenue for brand partners.">
+<meta property="og:title" content="Cal Cech | Content Creator &amp; Creative Strategist">
+<meta property="og:description" content="Cal Cech — content creator and creative strategist with 40M+ views and $100K+ in creator revenue generated, plus agency experience scaling a TikTok Shop network to $3M+ in affiliate GMV.">
 <meta property="og:image" content="https://cechcal-a11y.github.io/cal-cech-media-kit/assets/headshot.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Cal Cech | TikTok Shop Affiliate Marketer &amp; Content Creator">
-<meta name="twitter:description" content="Cal Cech — TikTok Shop affiliate marketer with 28.1K followers, 40M+ views, and $100K+ in generated revenue for brand partners.">
+<meta name="twitter:title" content="Cal Cech | Content Creator &amp; Creative Strategist">
+<meta name="twitter:description" content="Cal Cech — content creator and creative strategist with 40M+ views and $100K+ in creator revenue generated, plus agency experience scaling a TikTok Shop network to $3M+ in affiliate GMV.">
 <meta name="twitter:image" content="https://cechcal-a11y.github.io/cal-cech-media-kit/assets/headshot.jpg">
 
 <!-- Google tag (gtag.js) — PLACEHOLDER measurement ID. Swap G-XXXXXXXXXX for Cal's
@@ -46,21 +66,56 @@
 <header class="site-header">
   <div class="container header-inner">
     <span class="wordmark">Cal Cech</span>
-    <a href="#contact" class="btn btn-small">Let's Talk</a>
+    <div class="header-actions">
+      <a href="#contact" class="btn btn-small">Let's Talk</a>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteMenu" aria-label="Open menu">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+    </div>
   </div>
 </header>
 
+<div class="site-menu" id="siteMenu" aria-hidden="true">
+  <button type="button" class="site-menu-close" id="menuClose" aria-label="Close menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+  </button>
+  <nav class="site-menu-links" aria-label="Section navigation">
+    <a href="#story" class="site-menu-link">My Story</a>
+    <a href="#timeline" class="site-menu-link">Resume</a>
+    <a href="#skills" class="site-menu-link">Skills</a>
+    <a href="#proof" class="site-menu-link">Portfolio</a>
+    <a href="#work-together" class="site-menu-link">Work Together</a>
+  </nav>
+  <a href="#contact" class="site-menu-contact">Contact Me</a>
+</div>
+
 <section id="hero">
   <div class="container hero-inner">
-    <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Brand Growth · Content · Marketing</span>
-    <h1 class="reveal">Hey, I'm <mark>Calvin</mark>.</h1>
-    <p class="tagline reveal">I help brands grow through short-form content, creator partnerships, and marketing that actually converts.</p>
-    <nav class="hero-actions reveal" aria-label="Section navigation">
-      <a href="#story" class="btn btn-outline">My Story</a>
-      <a href="#timeline" class="btn btn-outline">Resume</a>
-      <a href="#skills" class="btn btn-outline">Skills</a>
-      <a href="#proof" class="btn btn-outline">Proof</a>
-      <a href="#work-together" class="btn btn-primary">Work Together</a>
+    <h1 class="hero-name">
+      <span class="word" style="--d:0s">Hey,</span>
+      <span class="word" style="--d:0.1s">I'm</span>
+      <mark class="word" style="--d:0.2s">Cal</mark>
+      <svg class="verify-check" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle class="verify-check-bg" cx="12" cy="12" r="11"/><path class="verify-check-mark" d="M7 12.5l3 3 7-7"/></svg>
+    </h1>
+    <p class="hero-blurb hero-pitch">Freelance content creator and creative strategist turning views into sales — 40M+ views and $100K+ in revenue generated for brand partners.</p>
+    <div class="hero-blurb hero-tags">
+      <span class="tag">Content Creation</span>
+      <span class="tag">Creative Strategy</span>
+      <span class="tag">AI Video Production</span>
+      <span class="tag">UGC</span>
+    </div>
+    <nav class="hero-menu" aria-label="Section navigation">
+      <div class="menu-item" style="--n:0;--z:1"><a href="#story" class="btn-pill"><span class="btn-pill-label">My Story</span></a></div>
+      <span class="menu-divider" aria-hidden="true"></span>
+      <div class="menu-item" style="--n:1;--z:2"><a href="#timeline" class="btn-pill"><span class="btn-pill-label">Resume</span></a></div>
+      <span class="menu-divider" aria-hidden="true"></span>
+      <div class="menu-item" style="--n:2;--z:3"><a href="#skills" class="btn-pill"><span class="btn-pill-label">Skills</span></a></div>
+      <span class="menu-divider" aria-hidden="true"></span>
+      <div class="menu-item" style="--n:3;--z:4"><a href="#proof" class="btn-pill"><span class="btn-pill-label">Portfolio</span></a></div>
+      <span class="menu-divider" aria-hidden="true"></span>
+      <div class="menu-item" style="--n:4;--z:5"><a href="#work-together" class="btn-pill btn-pill-primary"><span class="btn-pill-label">Work Together</span></a></div>
     </nav>
   </div>
 </section>
@@ -69,87 +124,109 @@
   <div class="container about-grid">
     <div class="reveal">
       <span class="eyebrow"><i class="eyebrow-dot"></i>My Story</span>
-      <p>I've been doing TikTok Shop affiliate marketing since 2024, generating over $100,000 in revenue and 40M+ views for a wide range of brands. I've done retainer work with agencies like Media Labs and TPgold, which gave me a strong sense of what brands actually look for in a creator. I currently attend the University of Georgia, but I know I'm an entrepreneur at heart.</p>
-      <p>I'm ready for what's next. I'm looking for brand partners who want more than a one-off post — real retainer relationships, product lines I can champion long-term, and teams who treat creators as a genuine growth channel. I want to work with, and learn from, brands that take their creator programs seriously.</p>
+      <p>I got into TikTok Shop affiliate marketing in 2024, learning how to make content and copywriting from scratch. Along the way I've picked up skills that have let me generate over $100,000 in revenue and produce 40M+ views for a wide range of brands. I've done brand deal work with agencies like Media Labs and TPgold, and brands like MSHUKCOE and Bioemblem. Eventually it was time to make the next move — so after a semester in college, I started a TikTok Shop marketing agency called Ethrl with my closest friends who did TikTok Shop with me. We made mistakes and failed constantly, which gave me the richest learning experience I could ask for. We scaled up to a roster of 300+ creators and $3 million in our affiliate network before we made the call to sell the agency and move on to the next chapter. In my off time, I enjoy cooking and DJing around campus.</p>
+      <p>Although most of my experience comes from TikTok Shop and managing a brand, I'm still looking for more opportunities to grow my marketing repertoire. I'm looking to get into UGC with a tech-forward company so I can learn the ins and outs of high-growth tech marketing, and I'm well versed in creating videos with AI.</p>
     </div>
     <div class="photo-frame reveal">
       <img src="assets/headshot.jpg" alt="Cal Cech">
     </div>
   </div>
+  <a href="#timeline" class="section-next" aria-label="Next: Resume">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 </section>
 
 <section id="timeline">
   <div class="container">
     <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Resume</span>
     <h2 class="reveal">Where I've been.</h2>
-    <!-- TIMELINE CONTENT PENDING: Cal to supply real dates/roles/education/milestones.
-         Entries below are placeholders so the section renders correctly — replace before
-         this goes live. Connector-line styling (.timeline/.timeline-dot) is a follow-up
-         pass (see NEXT-STEPS.md, Prompt A); this markup is ready for it. -->
     <ol class="timeline">
       <li class="timeline-item reveal" style="--i:0">
         <span class="timeline-dot"></span>
         <div class="timeline-content">
-          <div class="dash-header"><i class="dot dot-lime"></i><span>[DATE RANGE — PLACEHOLDER]</span></div>
-          <h3>[Placeholder — Cal to provide milestone]</h3>
-          <p>[One-line description of this role or milestone.]</p>
+          <span class="timeline-date">AUG 2024 — MAY 2026</span>
+          <h3>TikTok Shop Affiliate Marketer</h3>
+          <ul class="timeline-bullets">
+            <li>Generated $100K+ in affiliate revenue and drove 40M+ views producing TikTok Shop product videos across health &amp; wellness, beverage, and tech brands</li>
+            <li>Scaled @findproproducts to 28.1K followers, landing multiple viral videos and expanding audience reach</li>
+            <li>Leveraged TikTok analytics to refine hooks and content strategy, improving watch retention and conversion rate</li>
+          </ul>
         </div>
       </li>
       <li class="timeline-item reveal" style="--i:1">
         <span class="timeline-dot"></span>
         <div class="timeline-content">
-          <div class="dash-header"><i class="dot dot-lime"></i><span>[DATE RANGE — PLACEHOLDER]</span></div>
-          <h3>[Placeholder — Cal to provide milestone]</h3>
-          <p>[One-line description of this role or milestone.]</p>
+          <span class="timeline-date">FALL 2025 — PRESENT</span>
+          <h3>University of Georgia</h3>
+          <ul class="timeline-bullets">
+            <li>Studying Finance (BBA, intended) in Athens, GA while running affiliate and agency work alongside a full course load</li>
+          </ul>
         </div>
       </li>
       <li class="timeline-item reveal" style="--i:2">
         <span class="timeline-dot"></span>
         <div class="timeline-content">
-          <div class="dash-header"><i class="dot dot-lime"></i><span>[DATE RANGE — PLACEHOLDER]</span></div>
-          <h3>[Placeholder — Cal to provide milestone]</h3>
-          <p>[One-line description of this role or milestone.]</p>
+          <span class="timeline-date">JAN 2026 — JUNE 2026</span>
+          <h3>Ethrl, Cofounder</h3>
+          <ul class="timeline-bullets">
+            <li>Cofounded and scaled a TikTok Shop agency to a roster of 300+ creators generating $3M+ in affiliate GMV</li>
+            <li>Built the internal data backend powering creator performance tracking and payouts, and coached creators almost daily on growth strategy</li>
+            <li>Personally ran brand campaigns end-to-end — including Minnie Beasley's — before the agency was sold</li>
+          </ul>
         </div>
       </li>
     </ol>
   </div>
+  <a href="#skills" class="section-next" aria-label="Next: Skills">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 </section>
 
 <section id="skills">
   <div class="container">
     <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Skills</span>
     <h2 class="reveal">What I bring to a partnership.</h2>
-    <!-- Draft copy — grounded in Cal's existing TikTok Shop/creator experience, broadened
-         into transferable marketing-skill language. Cal should review/edit before this
-         goes live, same as the rest of the site's draft copy. -->
     <div class="content-grid">
       <div class="stat-card reveal" style="--i:0">
+        <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
+        <h3>Copywriting</h3>
+        <p>Hooks, scripts, and product copy written to convert — the same copywriting that's driven $100K+ in personal affiliate revenue.</p>
+      </div>
+      <div class="stat-card reveal" style="--i:1">
         <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
         <h3>Short-Form Content Creation</h3>
         <p>Scripting, filming, and editing high-retention short-form video built to convert, not just entertain.</p>
       </div>
-      <div class="stat-card reveal" style="--i:1">
-        <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
-        <h3>TikTok Shop Affiliate Strategy</h3>
-        <p>Product selection, hook testing, and posting cadence that turns views into sales.</p>
-      </div>
       <div class="stat-card reveal" style="--i:2">
         <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
-        <h3>Brand Partnership Management</h3>
-        <p>Retainer work with agencies like Media Labs and TPgold — I know what brands need from a creator on the other side of the table.</p>
+        <h3>AI Video Production</h3>
+        <p>Using AI tools to speed up scripting, editing, and iteration — producing more content, faster, without sacrificing quality.</p>
       </div>
       <div class="stat-card reveal" style="--i:3">
         <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
-        <h3>Conversion-Focused Growth</h3>
-        <p>Reading what's actually driving sales, not just views, and doubling down on it.</p>
+        <h3>TikTok Shop Affiliate Strategy</h3>
+        <p>Product selection, hook testing, and posting cadence — the exact playbook behind $100K+ in personal revenue and $3M+ across the 300+ creators I helped scale at Ethrl.</p>
+      </div>
+      <div class="stat-card reveal" style="--i:4">
+        <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
+        <h3>Creator &amp; Team Management</h3>
+        <p>Coached and managed a roster of 300+ affiliates at Ethrl — onboarding, daily performance coaching, and payouts.</p>
+      </div>
+      <div class="stat-card reveal" style="--i:5">
+        <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
+        <h3>Brand Partnership Management</h3>
+        <p>I've managed brand relationships from both sides of the table — as a creator taking a brief and as an agency cofounder fielding them.</p>
       </div>
     </div>
   </div>
+  <a href="#proof" class="section-next" aria-label="Next: Portfolio">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 </section>
 
 <section id="proof">
   <div class="container">
-    <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Proof</span>
+    <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Portfolio</span>
     <h2 class="reveal">The receipts.</h2>
   </div>
 
@@ -193,6 +270,7 @@
           <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@findproproducts/video/7613995932589362463" data-video-id="7613995932589362463" style="max-width: 325px;min-width: 325px;">
             <section></section>
           </blockquote>
+          <a href="https://www.tiktok.com/@findproproducts/video/7613995932589362463" target="_blank" rel="noopener" class="case-fallback-link">Watch on TikTok &#8599;</a>
         </div>
         <div class="case-card reveal" style="--i:1">
           <div class="dash-header"><i class="dot dot-live"></i><span>FEATURED CLIP · 02</span></div>
@@ -201,6 +279,7 @@
           <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@findproproducts/video/7535522050635500831" data-video-id="7535522050635500831" style="max-width: 325px;min-width: 325px;">
             <section></section>
           </blockquote>
+          <a href="https://www.tiktok.com/@findproproducts/video/7535522050635500831" target="_blank" rel="noopener" class="case-fallback-link">Watch on TikTok &#8599;</a>
         </div>
         <div class="case-card reveal" style="--i:2">
           <div class="dash-header"><i class="dot dot-live"></i><span>FEATURED CLIP · 03</span></div>
@@ -209,6 +288,7 @@
           <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@findproproducts/video/7482757638464343327" data-video-id="7482757638464343327" style="max-width: 325px;min-width: 325px;">
             <section></section>
           </blockquote>
+          <a href="https://www.tiktok.com/@findproproducts/video/7482757638464343327" target="_blank" rel="noopener" class="case-fallback-link">Watch on TikTok &#8599;</a>
         </div>
       </div>
     </div>
@@ -288,6 +368,9 @@
     </div>
   </section>
   -->
+  <a href="#work-together" class="section-next" aria-label="Next: Work Together">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 </section>
 
 <section id="work-together">
@@ -321,20 +404,14 @@
         <div class="pill-tags"><span class="tag">Rates on request</span></div>
       </div>
     </div>
-    <div class="hero-actions center reveal">
-      <a href="#contact" class="btn btn-primary">Get In Touch</a>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="container contact-inner">
-    <span class="eyebrow center reveal"><i class="eyebrow-dot"></i>Get In Touch</span>
-    <h2 class="reveal">Let's work together.</h2>
-    <p class="reveal">Ready to talk brand deals? Reach out directly.</p>
-    <div class="hero-actions center reveal">
-      <a href="mailto:cechcal@gmail.com" class="btn btn-primary">Email Me</a>
-      <a href="https://www.tiktok.com/@findproproducts" target="_blank" rel="noopener" class="btn btn-outline">View TikTok</a>
+    <div id="contact" class="contact-inner work-cta reveal" style="--i:4">
+      <span class="eyebrow center"><i class="eyebrow-dot"></i>Get In Touch</span>
+      <h2>Ready to talk brand deals?</h2>
+      <p>Reach out directly — I usually reply within a day.</p>
+      <div class="hero-actions center">
+        <a href="mailto:cechcal@gmail.com" class="btn btn-primary">Email Me</a>
+        <a href="https://www.tiktok.com/@findproproducts" target="_blank" rel="noopener" class="btn btn-outline">View TikTok</a>
+      </div>
     </div>
   </div>
   <footer class="site-footer">

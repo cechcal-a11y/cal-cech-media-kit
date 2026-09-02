@@ -1,6 +1,6 @@
 :root {
-  --bg: #08090C;
-  --bg-alt: #101218;
+  --bg: #1E2127;
+  --bg-alt: #282B33;
   --text: #F2F3F5;
   --text-dim: #8A8F98;
   --line: rgba(255, 255, 255, 0.08);
@@ -9,6 +9,13 @@
   --rose: #FF6E97;
   --max-width: 1120px;
 }
+
+/* scroll-behavior: smooth is added via JS (html.smooth-scroll) once the page
+   has settled, not applied unconditionally here — Chrome silently fails to
+   scroll to a URL's #fragment on initial load when the html element already
+   has scroll-behavior: smooth at that point, which broke every one of this
+   page's nav-pill links. */
+html.smooth-scroll { scroll-behavior: smooth; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -34,7 +41,48 @@ h1, h2, h3 {
   padding: 0 24px;
 }
 
-section { padding: 96px 0; }
+section { padding: 96px 0; scroll-margin-top: 96px; }
+
+/* One-section-at-a-time nav: #story/#timeline/#skills/#work-together fill the
+   viewport so navigating to a section never shows the next one peeking in below;
+   a round lime "next" arrow (reuses .btn-pill-primary's lime/dark palette) scrolls
+   to whatever comes after instead of relying on scroll bleed. #proof is left at
+   its natural (taller) height since it wraps #stats/#content/#brands/#agencies as
+   one continuous unit — its own next-arrow just anchors to the bottom of all that. */
+#story, #timeline, #skills, #work-together {
+  min-height: calc(100vh - 96px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+@media (max-width: 480px) {
+  #story, #timeline, #skills, #work-together { min-height: calc(100svh - 96px); }
+}
+/* Sticky, not absolute: section height is content-dependent (a 3-entry Timeline
+   or 4-card Work Together grid can exceed one viewport), so pinning this to the
+   section's own bottom edge either strands it below the fold or leaves it
+   floating ambiguously near the next section. Sticky keeps it hovering near the
+   viewport bottom for as long as its section is in view, then releases cleanly
+   as that section scrolls past — it always reads as "this section's" arrow. */
+.section-next {
+  position: sticky;
+  bottom: 12px;
+  margin: 24px auto 0;
+  width: 104px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.section-next:hover { transform: translateY(4px); filter: brightness(1.08); }
+@media (max-width: 480px) {
+  .section-next { bottom: 8px; width: 84px; height: 38px; }
+}
 
 a { color: inherit; text-decoration: none; }
 
@@ -115,6 +163,125 @@ mark {
 }
 .header-inner { display: flex; justify-content: space-between; align-items: center; }
 .wordmark { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.1rem; }
+.header-actions { display: flex; align-items: center; gap: 14px; }
+
+/* Hamburger toggle — three bars that squeeze into an X when the full-screen
+   menu (.site-menu) is open, driven by script.js toggling .is-open on both. */
+.menu-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+.menu-toggle:hover { background: rgba(255, 255, 255, 0.12); }
+.menu-toggle-bar {
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.menu-toggle.is-open .menu-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-toggle.is-open .menu-toggle-bar:nth-child(2) { opacity: 0; }
+.menu-toggle.is-open .menu-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Full-screen nav overlay, opened from the hamburger in the header — reachable
+   from anywhere on the page, not just the hero's own pill menu. */
+.site-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  background: rgba(8, 9, 12, 0.97);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+.site-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+}
+.site-menu-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+.site-menu-close:hover { background: rgba(255, 255, 255, 0.12); }
+.site-menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 340px;
+  padding: 0 24px;
+}
+.site-menu-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 16px 26px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.site-menu-link:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-2px); }
+.site-menu-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 48px);
+  max-width: 400px;
+  padding: 26px 32px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--bg);
+  font-family: 'Sora', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  text-align: center;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.site-menu-contact:hover { filter: brightness(1.08); transform: translateY(-3px) scale(1.02); }
+
+body.menu-open { overflow: hidden; }
+
+@media (max-width: 480px) {
+  .site-menu { gap: 28px; }
+  .site-menu-link { padding: 14px 22px; font-size: 1.05rem; }
+  .site-menu-contact { padding: 22px 28px; font-size: 1.2rem; }
+}
 
 /* Scroll reveal */
 .reveal {
@@ -126,33 +293,232 @@ mark {
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) {
   .reveal { transition: none; }
+  html { scroll-behavior: auto; }
+  .hero-name .word {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .hero-name mark.word {
+    animation: none;
+    text-shadow: 0 0 10px rgba(200, 245, 62, 0.4), 0 0 22px rgba(77, 225, 255, 0.2);
+  }
+  .verify-check {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .hero-blurb {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .menu-item {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .menu-divider {
+    animation: none;
+    opacity: 1;
+  }
+  .btn-pill-label {
+    animation: none;
+    opacity: 1;
+  }
+  .btn-pill:hover {
+    animation: none;
+  }
 }
 
-/* Hero */
-#hero { padding: 160px 0 80px; text-align: center; }
-.hero-inner { display: flex; flex-direction: column; align-items: center; }
-#hero .eyebrow, .eyebrow.center { justify-content: center; }
-#hero h1 {
+/* Hero — full-viewport landing, three stages in order: (1) the name animates in
+   word by word with a glow + checkmark on "Cal", a touch slower/more deliberate
+   than a snappy pop; (2) once that settles, the identity tag bubbles (Content
+   Creation / AI Video Production / UGC / Affiliate Marketing) pop in together as
+   one group, not staggered; (3) once the tags finish, the whole pill menu pops in
+   already stacked on top of each other at the My Story slot — each item's --n
+   controls how far up it's pulled to overlap, --z keeps Work Together (the green
+   pill) on top of the pile so that's what's visible while stacked — then the
+   whole grouping slides down together, each pill landing in its own slot at the
+   same moment. Pill label text stays hidden (.btn-pill-label) until the group has
+   finished separating, so overlapping pills never show each other's text; Work
+   Together's label shows immediately since it's the one visible the whole time.
+   Timeline: Hey (0-0.3s) -> I'm (0.15-0.45s) -> Cal + glow (0.3-0.9s) -> checkmark
+   (0.7-1.05s) -> tags pop together (0.9-1.3s) -> menu pops in stacked and slides
+   apart (1.3-2.2s) -> labels fade in (2.15-2.55s).
+   Each pill still hovers with a pop + shake (see .btn-pill:hover / @keyframes
+   pillShake), independent of the group entrance. */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  text-align: center;
+}
+@media (max-width: 480px) {
+  #hero { min-height: 100svh; }
+}
+.hero-inner { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.hero-name {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   font-size: clamp(2.4rem, 6vw, 4.2rem);
   max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
 }
-.tagline {
-  font-size: clamp(1.05rem, 2vw, 1.2rem);
+.hero-name .word {
+  display: inline-block;
+  opacity: 0;
+  transform: scale(0.6) translateY(10px);
+  animation: wordPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s) both;
+}
+@keyframes wordPop {
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.hero-name mark.word {
+  animation: wordPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s) both,
+             heroGlow 0.6s ease-out var(--d, 0s) both;
+}
+@keyframes heroGlow {
+  0% { text-shadow: 0 0 0 rgba(200, 245, 62, 0); }
+  60% { text-shadow: 0 0 20px rgba(200, 245, 62, 0.6), 0 0 40px rgba(77, 225, 255, 0.35); }
+  100% { text-shadow: 0 0 10px rgba(200, 245, 62, 0.4), 0 0 22px rgba(77, 225, 255, 0.2); }
+}
+.verify-check {
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.4);
+  animation: checkPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both;
+}
+.verify-check-bg { fill: var(--lime); }
+.verify-check-mark { fill: none; stroke: var(--bg); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes checkPop {
+  to { opacity: 1; transform: scale(1); }
+}
+.hero-blurb {
+  margin-top: 18px;
   color: var(--text-dim);
-  max-width: 620px;
-  margin: 24px 0 36px;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: blurbIn 0.4s ease-out 0.9s both;
 }
+@keyframes blurbIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-pitch {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.hero-tags .tag { box-shadow: inset 0 0 10px rgba(200, 245, 62, 0.1); font-weight: 700; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
-/* Intentions */
-#intentions { padding-top: 0; padding-bottom: 64px; text-align: center; }
+.hero-menu {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 280px;
+}
+.menu-item {
+  width: 100%;
+  position: relative;
+  z-index: var(--z, 1);
+  opacity: 0;
+  transform: translateY(calc(var(--n, 0) * -86px)) scale(0.9);
+  animation: menuStack 0.9s cubic-bezier(0.4, 0, 0.2, 1) 1.3s both;
+}
+@keyframes menuStack {
+  0% { opacity: 0; transform: translateY(calc(var(--n, 0) * -86px)) scale(0.9); }
+  88.9% { opacity: 1; transform: translateY(calc(var(--n, 0) * -86px)) scale(1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.menu-divider {
+  width: 2px;
+  height: 14px;
+  background: var(--line);
+  opacity: 0;
+  animation: dividerIn 0.4s ease-out 2.1s both;
+}
+@keyframes dividerIn {
+  to { opacity: 1; }
+}
+.btn-pill {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, background 0.2s ease, filter 0.2s ease;
+}
+.btn-pill-label {
+  display: inline-block;
+  opacity: 0;
+  animation: labelIn 0.4s ease-out 2.15s both;
+}
+@keyframes labelIn {
+  to { opacity: 1; }
+}
+/* Work Together sits on top of the stack the whole time it's piled up (see --z in
+   the markup), so its label never needs to hide — show it immediately instead of
+   waiting for the fade the hidden pills use. */
+.btn-pill-primary .btn-pill-label {
+  animation: none;
+  opacity: 1;
+}
+.btn-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  animation: pillShake 0.4s ease-in-out forwards;
+}
+@keyframes pillShake {
+  0% { transform: scale(1) translateX(0); }
+  15% { transform: scale(1.08) translateX(-5px); }
+  35% { transform: scale(1.08) translateX(5px); }
+  55% { transform: scale(1.08) translateX(-4px); }
+  75% { transform: scale(1.08) translateX(3px); }
+  100% { transform: scale(1.06) translateX(0); }
+}
+.btn-pill-primary {
+  background: var(--lime);
+  color: var(--bg);
+}
+/* The main CTA gets a calmer hover than the other pills — a smooth lift + brighten
+   via the transition above, not the shake, which reads as more confident/premium
+   on the primary action than on the secondary grey pills. */
+.btn-pill-primary:hover {
+  animation: none;
+  background: var(--lime);
+  filter: brightness(1.08);
+  transform: translateY(-3px) scale(1.03);
+}
+
 .lede {
   max-width: 680px;
   margin: 0 auto;
   font-size: clamp(1.1rem, 2vw, 1.3rem);
   color: var(--text-dim);
 }
-#intentions .eyebrow { justify-content: center; }
 
 /* About */
 .about-grid {
@@ -176,6 +542,87 @@ mark {
   .about-grid { grid-template-columns: 1fr; }
 }
 
+/* Timeline */
+#timeline h2 { margin-bottom: 48px; max-width: 640px; }
+.timeline {
+  list-style: none;
+  position: relative;
+  max-width: 640px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.15);
+}
+.timeline-item {
+  display: flex;
+  gap: 24px;
+  position: relative;
+  padding-bottom: 24px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  margin-top: 26px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--lime);
+  position: relative;
+  z-index: 1;
+}
+.timeline-content {
+  flex: 1;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 24px;
+}
+.timeline-date {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--lime);
+  margin-bottom: 10px;
+}
+.timeline-content h3 { font-size: 1.15rem; margin-bottom: 10px; }
+.timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.timeline-bullets li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+.timeline-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+@media (max-width: 700px) {
+  .timeline-item { gap: 16px; padding-bottom: 20px; }
+  .timeline::before { left: 4px; }
+  .timeline-content { padding: 18px 20px; }
+}
+
+/* Proof wrapper — its own section padding is zeroed since it wraps #stats/#content/
+   #brands/#agencies, each already carrying full section padding; keeping #proof's
+   own padding would double up the gap at both the top and bottom of the wrapper. */
+#proof { padding: 0; position: relative; }
+
 /* Stats */
 .stat-grid {
   display: grid;
@@ -191,18 +638,18 @@ mark {
 .stat-card strong { font-family: 'Sora', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--lime); display: block; }
 .stat-label { color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; }
 
-.stat-card:nth-child(4) {
+#stats .stat-card:nth-child(4) {
   grid-column: 1 / -1;
   text-align: center;
   padding: 32px 24px;
 }
-.stat-card:nth-child(4) .dash-header { justify-content: center; }
-.stat-card:nth-child(4) strong { font-size: 3.4rem; }
+#stats .stat-card:nth-child(4) .dash-header { justify-content: center; }
+#stats .stat-card:nth-child(4) strong { font-size: 3.4rem; }
 
 @media (max-width: 700px) {
   .stat-grid { grid-template-columns: 1fr; }
-  .stat-card:nth-child(4) { grid-column: auto; padding: 24px; }
-  .stat-card:nth-child(4) strong { font-size: 2.4rem; }
+  #stats .stat-card:nth-child(4) { grid-column: auto; padding: 24px; }
+  #stats .stat-card:nth-child(4) strong { font-size: 2.4rem; }
 }
 
 /* Featured Content */
@@ -222,6 +669,21 @@ mark {
 .case-card .dash-header { justify-content: center; }
 .case-card h3 { margin-bottom: 6px; font-size: 1.1rem; }
 .case-meta { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 16px; }
+.case-fallback-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--lime);
+  border: 1px solid rgba(200, 245, 62, 0.3);
+  border-radius: 999px;
+  padding: 8px 16px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.case-fallback-link:hover { background: rgba(200, 245, 62, 0.1); border-color: rgba(200, 245, 62, 0.5); }
 
 /* Brands / Agencies pills */
 .pill-row { display: flex; flex-direction: column; gap: 18px; max-width: 640px; }
@@ -314,22 +776,19 @@ mark {
 }
 .quote-attr { margin-top: 16px; font-size: 0.9rem; color: var(--text-dim); }
 
-/* Contact */
-#contact {
-  min-height: 130vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+/* Contact — folded into the bottom of #work-together as the page's one closing
+   CTA (used to be its own 130vh section duplicating "let's connect" right after
+   the Work Together cards' own CTA button; merged so there's a single ask). */
+.work-cta { margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--line); }
 .contact-inner { text-align: center; }
 .contact-inner .eyebrow { font-size: 1.1rem; margin-bottom: 28px; }
-.contact-inner h2 { margin-bottom: 20px; font-size: clamp(2.8rem, 8vw, 5.2rem); }
-.contact-inner p { color: var(--text-dim); margin-bottom: 44px; font-size: clamp(1.15rem, 2.5vw, 1.4rem); }
+.contact-inner h2 { margin-bottom: 20px; font-size: clamp(2.2rem, 5.5vw, 3.4rem); }
+.contact-inner p { color: var(--text-dim); margin-bottom: 44px; font-size: clamp(1.05rem, 2vw, 1.2rem); }
 .contact-inner .btn { padding: 20px 40px; font-size: 1.15rem; }
-.site-footer { margin-top: auto; text-align: center; padding: 24px 0 8px; color: var(--text-dim); font-size: 0.85rem; }
+.site-footer { text-align: center; padding: 56px 0 8px; color: var(--text-dim); font-size: 0.85rem; }
 
-@media (max-width: 480px) {
-  #contact { min-height: 110svh; }
+@media (max-width: 700px) {
+  .work-cta { margin-top: 48px; padding-top: 36px; }
 }
 
 /* Mobile polish */
