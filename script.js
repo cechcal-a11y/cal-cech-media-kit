@@ -53,6 +53,10 @@
     });
   }
 
+  // Footer copyright year — was hardcoded, so it silently goes stale every January.
+  var footerYear = document.getElementById('footerYear');
+  if (footerYear) footerYear.textContent = String(new Date().getFullYear());
+
   var header = document.querySelector('.site-header');
   function onScroll() {
     if (window.scrollY > 40) {
@@ -66,10 +70,7 @@
 
   function setFinalCounts() {
     document.querySelectorAll('[data-count]').forEach(function (el) {
-      var target = parseFloat(el.getAttribute('data-count'));
-      var suffix = el.getAttribute('data-suffix') || '';
-      var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
-      el.textContent = target.toFixed(decimals) + suffix;
+      el.textContent = finalValue(el);
     });
   }
 
@@ -133,6 +134,13 @@
     revealNow(location.hash);
   }
 
+  function finalValue(el) {
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+    return target.toFixed(decimals) + suffix;
+  }
+
   function animateCount(el) {
     var target = parseFloat(el.getAttribute('data-count'));
     var suffix = el.getAttribute('data-suffix') || '';
@@ -141,6 +149,15 @@
     var start = null;
 
     function step(timestamp) {
+      // Browsers pause requestAnimationFrame in a backgrounded tab. Without this
+      // bail-out, a visitor who scrolls the stats into view and then switches tabs
+      // comes back to numbers frozen partway through the count — "$16K+" where
+      // "$100K+" belongs, on the most important figures on the page, with nothing
+      // to restart them. Snap to the real value instead.
+      if (document.hidden) {
+        el.textContent = finalValue(el);
+        return;
+      }
       if (!start) start = timestamp;
       var progress = Math.min((timestamp - start) / duration, 1);
       var eased = 1 - Math.pow(1 - progress, 3);
@@ -149,11 +166,22 @@
       if (progress < 1) {
         requestAnimationFrame(step);
       } else {
-        el.textContent = target.toFixed(decimals) + suffix;
+        el.textContent = finalValue(el);
       }
     }
     requestAnimationFrame(step);
   }
+
+  // Belt and braces for the case above: if the tab is hidden at any point, settle
+  // every counter that has already started on its true value.
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) return;
+    document.querySelectorAll('[data-count]').forEach(function (el) {
+      if (el.textContent.trim() !== '0' + (el.getAttribute('data-suffix') || '')) {
+        el.textContent = finalValue(el);
+      }
+    });
+  });
 
   // "Email Me" is a mailto: link — on a device with no default mail client
   // configured, clicking it just does nothing visible, which reads as broken.

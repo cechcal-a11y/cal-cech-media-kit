@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cal Cech | TikTok Shop Affiliate Marketer &amp; Content Creator</title>
-<meta name="description" content="Cal Cech — TikTok Shop affiliate marketer and content creator with 40M+ views and $100K+ in creator revenue generated, plus agency experience scaling a network to $3M+ in affiliate GMV.">
+<!-- Kept under ~155 chars so Google doesn't truncate it in results. The longer
+     positioning line lives in the og:/twitter:/JSON-LD descriptions below, which
+     have no such limit — update both together if the pitch changes. -->
+<meta name="description" content="TikTok Shop affiliate marketer and content creator. 40M+ views, $100K+ in revenue driven, and a 300+ creator network scaled to $3M+ GMV.">
 
 <!-- Favicon — inline SVG reusing the hero's lime checkmark motif (.verify-check),
      with its colors hardcoded since a favicon can't reach the page's CSS. -->
@@ -26,9 +29,9 @@
 }
 </script>
 
-<!-- CANONICAL URL — PLACEHOLDER: swap for the real deployed URL once Cal confirms
-     custom domain vs. GitHub Pages default (github.com/cechcal-a11y/cal-cech-media-kit
-     has no CNAME set, so this is currently unknown). -->
+<!-- Canonical URL — this is the live GitHub Pages deploy. If a custom domain is
+     added later, update this alongside og:url, og:image, twitter:image, and the
+     JSON-LD image above; they all share this same base. -->
 <link rel="canonical" href="https://cechcal-a11y.github.io/cal-cech-media-kit/">
 
 <!-- Open Graph / Twitter Card — reuses the title/description above for consistency.
@@ -45,9 +48,12 @@
 <meta name="twitter:description" content="Cal Cech — TikTok Shop affiliate marketer and content creator with 40M+ views and $100K+ in creator revenue generated, plus agency experience scaling a network to $3M+ in affiliate GMV.">
 <meta name="twitter:image" content="https://cechcal-a11y.github.io/cal-cech-media-kit/assets/headshot.jpg">
 
-<!-- Google tag (gtag.js) — PLACEHOLDER measurement ID. Swap G-XXXXXXXXXX for Cal's
-     real GA4 ID before launch; the default config call below handles pageview
-     tracking automatically for this single-page site, no extra event code needed. -->
+<!-- Google tag (gtag.js) — DISABLED until Cal supplies a real GA4 measurement ID.
+     This was previously live with the placeholder G-XXXXXXXXXX, which made every
+     visitor load ~100KB of gtag.js and fire hits against an ID that doesn't exist:
+     no data collected, just cost. To turn analytics on, replace both occurrences
+     of G-XXXXXXXXXX below with the real ID and uncomment. The default config call
+     covers pageviews for this single-page site; no extra event code needed.
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -55,6 +61,7 @@
   gtag('js', new Date());
   gtag('config', 'G-XXXXXXXXXX');
 </script>
+-->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,7 +74,7 @@
   <div class="container header-inner">
     <span class="wordmark">Cal Cech</span>
     <div class="header-actions">
-      <a href="#contact" class="btn btn-small">Let's Talk</a>
+      <a href="#contact" class="btn btn-small">Get In Touch</a>
       <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteMenu" aria-label="Open menu">
         <span class="menu-toggle-bar"></span>
         <span class="menu-toggle-bar"></span>
@@ -86,9 +93,8 @@
     <a href="#timeline" class="site-menu-link">Resume</a>
     <a href="#skills" class="site-menu-link">Skills</a>
     <a href="#proof" class="site-menu-link">Portfolio</a>
-    <a href="#work-together" class="site-menu-link">Work Together</a>
   </nav>
-  <a href="#contact" class="site-menu-contact">Contact Me</a>
+  <a href="#contact" class="site-menu-contact">Get In Touch</a>
 </div>
 
 <section id="hero">
@@ -114,7 +120,7 @@
       <span class="menu-divider" aria-hidden="true"></span>
       <div class="menu-item" style="--n:3;--z:4"><a href="#proof" class="btn-pill"><span class="btn-pill-label">Portfolio</span></a></div>
       <span class="menu-divider" aria-hidden="true"></span>
-      <div class="menu-item" style="--n:4;--z:5"><a href="#work-together" class="btn-pill btn-pill-primary"><span class="btn-pill-label">Work Together</span></a></div>
+      <div class="menu-item" style="--n:4;--z:5"><a href="#contact" class="btn-pill btn-pill-primary"><span class="btn-pill-label">Get In Touch</span></a></div>
     </nav>
   </div>
 </section>
@@ -123,6 +129,7 @@
   <div class="container about-grid">
     <div class="reveal">
       <span class="eyebrow"><i class="eyebrow-dot"></i>My Story</span>
+      <h2>How I got here.</h2>
       <p>I got into TikTok Shop affiliate marketing in 2024, learning content and copywriting from scratch. That work has generated over $100,000 in personal revenue and 40M+ views for brands including MSHUKCOE and Bioemblem, through agencies like Media Labs and TPgold.</p>
       <p>After a semester of college, I cofounded a TikTok Shop marketing agency, Ethrl, with the friends I'd started out with. We scaled it to a 300+ creator roster and $3M+ in affiliate GMV, then made the call to sell it and move on to the next chapter.</p>
       <p>Outside of that, I enjoy cooking and DJing around campus. Most of my experience is in TikTok Shop and brand management, but I'm actively looking to grow into UGC with a tech-forward company and get deeper into AI-assisted video production.</p>
@@ -141,15 +148,18 @@
     <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Resume</span>
     <h2 class="reveal">Where I've been.</h2>
     <ol class="timeline">
+      <!-- Reverse-chronological (most recent first), the resume convention — it reads
+           as a trajectory rather than a list. Education sits between the two roles
+           because that's where it falls by date, not as a deliberate split. -->
       <li class="timeline-item reveal" style="--i:0">
         <span class="timeline-dot"></span>
         <div class="timeline-content">
-          <span class="timeline-date">AUG 2024 — MAY 2026</span>
-          <h3>TikTok Shop Affiliate Marketer</h3>
+          <span class="timeline-date">JAN 2026 — JUNE 2026</span>
+          <h3>Ethrl, Cofounder</h3>
           <ul class="timeline-bullets">
-            <li>Generated $100K+ in affiliate revenue and drove 40M+ views producing TikTok Shop product videos across health &amp; wellness, beverage, and tech brands</li>
-            <li>Scaled @findproproducts to 28.1K followers, landing multiple viral videos and expanding audience reach</li>
-            <li>Leveraged TikTok analytics to refine hooks and content strategy, improving watch retention and conversion rate</li>
+            <li>Cofounded and scaled a TikTok Shop agency to a roster of 300+ creators generating $3M+ in affiliate GMV</li>
+            <li>Built the internal data backend powering creator performance tracking and payouts, and coached creators almost daily on growth strategy</li>
+            <li>Ran brand campaigns end-to-end — briefing, creator matching, and reporting — before the agency was sold</li>
           </ul>
         </div>
       </li>
@@ -166,12 +176,12 @@
       <li class="timeline-item reveal" style="--i:2">
         <span class="timeline-dot"></span>
         <div class="timeline-content">
-          <span class="timeline-date">JAN 2026 — JUNE 2026</span>
-          <h3>Ethrl, Cofounder</h3>
+          <span class="timeline-date">AUG 2024 — MAY 2026</span>
+          <h3>TikTok Shop Affiliate Marketer</h3>
           <ul class="timeline-bullets">
-            <li>Cofounded and scaled a TikTok Shop agency to a roster of 300+ creators generating $3M+ in affiliate GMV</li>
-            <li>Built the internal data backend powering creator performance tracking and payouts, and coached creators almost daily on growth strategy</li>
-            <li>Personally ran brand campaigns end-to-end — including Minnie Beasley's — before the agency was sold</li>
+            <li>Generated $100K+ in affiliate revenue and drove 40M+ views producing TikTok Shop product videos across health &amp; wellness, beverage, and tech brands</li>
+            <li>Scaled @findproproducts to 28.1K followers, landing multiple viral videos and expanding audience reach</li>
+            <li>Leveraged TikTok analytics to refine hooks and content strategy, improving watch retention and conversion rate</li>
           </ul>
         </div>
       </li>
@@ -187,32 +197,35 @@
     <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Skills</span>
     <h2 class="reveal">What I bring to a partnership.</h2>
     <div class="content-grid">
-      <div class="stat-card reveal" style="--i:0">
+      <!-- These describe capability. The numbers behind them live in the Portfolio
+           stat tiles and the Resume bullets — re-citing "$100K+" here (twice, in
+           adjacent cards) drained it rather than reinforcing it. -->
+      <div class="skill-card reveal" style="--i:0">
         <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
         <h3>Copywriting</h3>
-        <p>Hooks, scripts, and product copy written to convert — the same copywriting that's driven $100K+ in personal affiliate revenue.</p>
+        <p>Hooks, scripts, and product copy written to convert — shaped by testing what actually sells, not what sounds good in a brief.</p>
       </div>
-      <div class="stat-card reveal" style="--i:1">
+      <div class="skill-card reveal" style="--i:1">
         <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
         <h3>Short-Form Content Creation</h3>
         <p>Scripting, filming, and editing high-retention short-form video built to convert, not just entertain.</p>
       </div>
-      <div class="stat-card reveal" style="--i:2">
+      <div class="skill-card reveal" style="--i:2">
         <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
         <h3>AI Video Production</h3>
         <p>Using AI tools to speed up scripting, editing, and iteration — producing more content, faster, without sacrificing quality.</p>
       </div>
-      <div class="stat-card reveal" style="--i:3">
+      <div class="skill-card reveal" style="--i:3">
         <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
         <h3>TikTok Shop Affiliate Strategy</h3>
-        <p>Product selection, hook testing, and posting cadence — the exact playbook behind $100K+ in personal revenue and $3M+ across the 300+ creators I helped scale at Ethrl.</p>
+        <p>Product selection, hook testing, and posting cadence — the playbook behind every number on this page.</p>
       </div>
-      <div class="stat-card reveal" style="--i:4">
+      <div class="skill-card reveal" style="--i:4">
         <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
         <h3>Creator &amp; Team Management</h3>
         <p>Coached and managed a roster of 300+ affiliates at Ethrl — onboarding, daily performance coaching, and payouts.</p>
       </div>
-      <div class="stat-card reveal" style="--i:5">
+      <div class="skill-card reveal" style="--i:5">
         <div class="dash-header"><i class="dot dot-lime"></i><span>SKILL</span></div>
         <h3>Brand Partnership Management</h3>
         <p>I've managed brand relationships from both sides of the table — as a creator taking a brief and as an agency cofounder fielding them.</p>
@@ -227,11 +240,17 @@
 <section id="proof">
   <div class="container">
     <span class="eyebrow eyebrow-lime reveal">Portfolio</span>
+    <h2 class="reveal">The receipts.</h2>
   </div>
 
   <section id="stats">
     <div class="container">
       <span class="eyebrow reveal"><i class="eyebrow-dot"></i>My Stats</span>
+      <h2 class="reveal">Reach, at a glance.</h2>
+      <!-- Two rows on a 6-col grid: the three audience metrics span 2 each, then the
+           two money metrics span 3 each. The headline tiles used to be selected by
+           :nth-child, which broke silently whenever a stat was added or reordered —
+           .is-headline says what it means. -->
       <div class="stat-grid">
         <div class="stat-card reveal" style="--i:0">
           <strong><span data-count="28.1" data-suffix="K" data-decimals="1">0K</span></strong>
@@ -245,9 +264,17 @@
           <strong><span data-count="40" data-suffix="M+" data-decimals="0">0M+</span></strong>
           <span class="stat-label">Views</span>
         </div>
-        <div class="stat-card reveal" style="--i:3">
+        <!-- These two were one mislabeled tile: "$100K+ / GMV Generated". My Story
+             defines $100K as personal revenue and $3M+ as the Ethrl network's GMV,
+             so the old tile understated the GMV figure by 30x and misnamed the
+             revenue figure. They're distinct numbers and now read as distinct. -->
+        <div class="stat-card is-headline reveal" style="--i:3">
           <strong>$<span data-count="100" data-suffix="K+" data-decimals="0">0K+</span></strong>
-          <span class="stat-label">GMV Generated</span>
+          <span class="stat-label">Revenue Generated</span>
+        </div>
+        <div class="stat-card is-headline reveal" style="--i:4">
+          <strong>$<span data-count="3" data-suffix="M+" data-decimals="0">0M+</span></strong>
+          <span class="stat-label">Affiliate GMV Scaled at Ethrl</span>
         </div>
       </div>
     </div>
@@ -258,40 +285,55 @@
       <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Featured Content</span>
       <h2 class="reveal">Content that converts, not just views.</h2>
       <div class="content-grid">
+        <!-- The inline "max-width/min-width: 325px" TikTok's embed snippet ships with
+             is deliberately gone: it is wider than the grid column at every breakpoint
+             here, so the embed spilled past the card border and TikTok's own footer bar
+             got clipped mid-sentence ("...n TikTok"). .case-embed in style.css sizes it
+             fluidly and reserves its height so the page doesn't reflow when it loads. -->
         <div class="case-card reveal" style="--i:0">
           <div class="dash-header"><i class="dot dot-live"></i><span>FEATURED CLIP · 01</span></div>
-          <h3>Dual Earbuds</h3>
-          <p class="case-meta">21M+ views (self-reported) · 198.4K likes on TikTok</p>
-          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@findproproducts/video/7613995932589362463" data-video-id="7613995932589362463" style="max-width: 325px;min-width: 325px;">
-            <section></section>
-          </blockquote>
+          <h3>MSHUKCOE Dual Earbuds</h3>
+          <p class="case-meta">21M+ views · 198.4K likes</p>
+          <div class="case-embed">
+            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@findproproducts/video/7613995932589362463" data-video-id="7613995932589362463">
+              <section></section>
+            </blockquote>
+          </div>
           <a href="https://www.tiktok.com/@findproproducts/video/7613995932589362463" target="_blank" rel="noopener" class="case-fallback-link">Watch on TikTok &#8599;</a>
         </div>
         <div class="case-card reveal" style="--i:1">
           <div class="dash-header"><i class="dot dot-live"></i><span>FEATURED CLIP · 02</span></div>
           <h3>Goli Zero Sugar Best Seller Pack</h3>
-          <p class="case-meta">8M+ views (self-reported) · 101.1K likes on TikTok</p>
-          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@findproproducts/video/7535522050635500831" data-video-id="7535522050635500831" style="max-width: 325px;min-width: 325px;">
-            <section></section>
-          </blockquote>
+          <p class="case-meta">8M+ views · 101.1K likes</p>
+          <div class="case-embed">
+            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@findproproducts/video/7535522050635500831" data-video-id="7535522050635500831">
+              <section></section>
+            </blockquote>
+          </div>
           <a href="https://www.tiktok.com/@findproproducts/video/7535522050635500831" target="_blank" rel="noopener" class="case-fallback-link">Watch on TikTok &#8599;</a>
         </div>
         <div class="case-card reveal" style="--i:2">
           <div class="dash-header"><i class="dot dot-live"></i><span>FEATURED CLIP · 03</span></div>
-          <h3>Kava Haven</h3>
-          <p class="case-meta">5M+ views (self-reported) · 85.3K likes on TikTok</p>
-          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@findproproducts/video/7482757638464343327" data-video-id="7482757638464343327" style="max-width: 325px;min-width: 325px;">
-            <section></section>
-          </blockquote>
+          <h3>Kava Haven Kava Shots</h3>
+          <p class="case-meta">5M+ views · 85.3K likes</p>
+          <div class="case-embed">
+            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@findproproducts/video/7482757638464343327" data-video-id="7482757638464343327">
+              <section></section>
+            </blockquote>
+          </div>
           <a href="https://www.tiktok.com/@findproproducts/video/7482757638464343327" target="_blank" rel="noopener" class="case-fallback-link">Watch on TikTok &#8599;</a>
         </div>
       </div>
+      <!-- Said once, here, instead of "(self-reported)" appended to all three cards —
+           three hedges in a row read defensively. -->
+      <p class="content-footnote reveal">View and like counts are self-reported from TikTok analytics.</p>
     </div>
   </section>
 
   <section id="brands">
     <div class="container">
-      <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Brands I've Worked With</span>
+      <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Brands</span>
+      <h2 class="reveal">Who I've made content for.</h2>
       <div class="pill-row">
         <!-- Real logos: Goli (goli.com), Kava Haven and Lullabites (provided by Cal). MSHUKCOE
              has no distinct logomark anywhere official (Amazon-only private label, text brand
@@ -312,12 +354,15 @@
           </span>
           <span class="pill-stat-badge">5M+ views</span>
         </div>
+        <!-- MSHUKCOE owns the 21M+ Dual Earbuds clip above — the single biggest number
+             on the page — but was the only badged-worthy brand missing its badge. -->
         <div class="pill reveal" style="--i:2">
           <span class="pill-logo">M</span>
           <span class="pill-text">
             <span class="pill-name">MSHUKCOE</span>
             <span class="pill-tags"><span class="tag">Tech &amp; Electronics</span><span class="tag">Audio</span></span>
           </span>
+          <span class="pill-stat-badge">21M+ views</span>
         </div>
         <div class="pill reveal" style="--i:3">
           <span class="pill-logo has-logo"><img class="fill" src="assets/logo-lullabites.jpg" alt="LullaBites logo"></span>
@@ -325,14 +370,21 @@
             <span class="pill-name">Lullabites</span>
             <span class="pill-tags"><span class="tag">Health &amp; Wellness</span><span class="tag">Sleep Aids</span></span>
           </span>
+          <!-- No badge: no view count on hand for this one. See NEXT-STEPS.md — it's
+               the last brand without one, so the row reads inconsistent until Cal
+               supplies the number (or we drop badges entirely). -->
         </div>
+        <!-- Bioemblem is named in My Story but has no logo asset and no view count,
+             so it's deliberately not a pill yet rather than a half-empty one.
+             Tracked in NEXT-STEPS.md. -->
       </div>
     </div>
   </section>
 
   <section id="agencies">
     <div class="container">
-      <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Agencies I've Worked With</span>
+      <span class="eyebrow reveal"><i class="eyebrow-dot"></i>Agencies</span>
+      <h2 class="reveal">Who I've worked through.</h2>
       <div class="pill-row">
         <!-- Media Labs logo sourced from medialabs-co.com; TPgold logo provided by Cal (cropped
              to just the icon mark, since the source file's wordmark became illegible at badge size). -->
@@ -363,17 +415,21 @@
     </div>
   </section>
   -->
-  <a href="#work-together" class="section-next" aria-label="Next: Work Together">
+  <a href="#contact" class="section-next" aria-label="Next: Get In Touch">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </a>
 </section>
 
-<section id="work-together">
+<!-- Renamed from #work-together. That section once held rate tiers; after they were
+     removed it was a contact CTA wearing a "Work Together" label, and the hero's
+     primary lime button promised something the section didn't deliver. One id, one
+     name, and the header button / hero pill / menu CTA all say "Get In Touch". -->
+<section id="contact">
   <div class="container">
-    <div id="contact" class="contact-inner work-cta reveal" style="--i:0">
+    <div class="contact-inner reveal" style="--i:0">
       <span class="eyebrow center"><i class="eyebrow-dot"></i>Get In Touch</span>
       <h2>Ready to collaborate?</h2>
-      <p>Responses within 24-48 hours.</p>
+      <p>Send over the product, your timeline, and what a win looks like — I'll come back with whether I'm the right fit and what it'd cost. Responses within 24&ndash;48 hours.</p>
       <div class="hero-actions center">
         <a href="mailto:cechcal@gmail.com" class="btn btn-primary">Email Me</a>
         <a href="https://www.tiktok.com/@findproproducts" target="_blank" rel="noopener" class="btn btn-outline">View TikTok</a>
@@ -381,7 +437,7 @@
     </div>
   </div>
   <footer class="site-footer">
-    <p>&copy; 2026 Cal Cech</p>
+    <p>&copy; <span id="footerYear">2026</span> Cal Cech</p>
   </footer>
 </section>
 

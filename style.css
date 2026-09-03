@@ -3,6 +3,12 @@
   --bg-alt: #282B33;
   --text: #F2F3F5;
   --text-dim: #8A8F98;
+  /* --text-dim measures 4.96:1 on --bg (passes WCAG AA) but only 4.22:1 on the
+     lighter --bg-alt card surface, which fails. Card body copy — timeline bullets,
+     skill card text, .case-meta, .stat-label, .tag — uses this instead: 5.2:1 on
+     --bg-alt. Keep them separate rather than lightening --text-dim globally, which
+     would wash out the on-background prose that's already fine. */
+  --text-dim-card: #9BA1AB;
   --line: rgba(255, 255, 255, 0.08);
   --lime: #C8F53E;
   --cyan: #4DE1FF;
@@ -35,6 +41,11 @@ h1, h2, h3 {
   line-height: 1.15;
 }
 
+/* Section headings need a real scale of their own. Previously they fell back to the
+   browser default (1.5em), which left them visually *smaller* than the mono .eyebrow
+   label sitting above them — the label outshouted the heading it was labelling. */
+h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
+
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -48,34 +59,40 @@ h1, h2, h3 {
    section's arrow poking out below it, overlapping the new section's title. */
 section { padding: 96px 0; scroll-margin-top: 80px; }
 
-/* One-section-at-a-time nav: #story/#timeline/#skills/#work-together fill the
-   viewport so navigating to a section never shows the next one peeking in below;
-   a round lime "next" arrow (reuses .btn-pill-primary's lime/dark palette) scrolls
-   to whatever comes after instead of relying on scroll bleed. #proof is left at
-   its natural (taller) height since it wraps #stats/#content/#brands/#agencies as
-   one continuous unit — its own next-arrow just anchors to the bottom of all that. */
-#story, #timeline, #skills, #work-together {
+/* One-section-at-a-time nav: these sections fill the viewport so navigating to a
+   section never shows the next one peeking in below. #proof is left at its natural
+   (taller) height since it wraps #stats/#content/#brands/#agencies as one continuous
+   unit — its own next-arrow just anchors to the bottom of all that.
+
+   justify-content is flex-start, NOT center. Centering looked right in the abstract
+   but these sections are `min-height: 100vh` on top of the global 96px section
+   padding, so every one of them is taller than a viewport: content got stranded in
+   the middle of an oversized box with 300-500px voids above and below it (My Story's
+   content filled ~450px of an ~880px section), while the taller sections overflowed
+   in both directions at once. Starting content at the top lets the section padding
+   set the rhythm; short sections still fill the screen. */
+#story, #timeline, #skills, #contact {
   min-height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
 }
 @media (max-width: 480px) {
-  #story, #timeline, #skills, #work-together { min-height: calc(100svh - 80px); }
+  #story, #timeline, #skills, #contact { min-height: calc(100svh - 80px); }
 }
-/* Sticky, not absolute: section height is content-dependent (a 3-entry Timeline
-   or 4-card Work Together grid can exceed one viewport), so pinning this to the
-   section's own bottom edge either strands it below the fold or leaves it
-   floating ambiguously near the next section. Sticky keeps it hovering near the
-   viewport bottom for as long as its section is in view, then releases cleanly
-   as that section scrolls past — it always reads as "this section's" arrow. */
+/* Static, not sticky. Sticky kept this hovering at the viewport bottom for as long
+   as its section was in view, which meant it printed directly on top of whatever
+   happened to be under it — the Ethrl timeline card's third bullet, the middle
+   featured card's "Watch on TikTok" link — and, because every section is taller
+   than the viewport, put two arrows on screen at once with ~500px of nothing
+   between them. At the end of its own section it can't overlap anything and only
+   one is ever in view. */
 .section-next {
-  position: sticky;
-  bottom: 12px;
-  margin: 24px auto 0;
+  margin: 48px auto 0;
   width: 104px;
   height: 44px;
+  flex-shrink: 0;
   border-radius: 999px;
   background: var(--lime);
   color: var(--bg);
@@ -85,8 +102,23 @@ section { padding: 96px 0; scroll-margin-top: 80px; }
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 .section-next:hover { transform: translateY(4px); filter: brightness(1.08); }
+
+/* In the full-height sections the arrow belongs at the bottom edge. On a tall
+   viewport a short section has slack to spare; with the arrow sitting directly
+   under the content, all of that slack fell *below* the "next" affordance, which
+   read as a dead gap after the section had already ended. margin-top:auto hands
+   the slack to the space above the arrow instead, so it always sits where "next"
+   means something. The container's margin-bottom keeps a floor under that gap for
+   sections whose content already fills the screen. */
+#story > .container,
+#timeline > .container,
+#skills > .container { margin-bottom: 48px; }
+#story .section-next,
+#timeline .section-next,
+#skills .section-next { margin-top: auto; }
+
 @media (max-width: 480px) {
-  .section-next { bottom: 8px; width: 84px; height: 38px; }
+  .section-next { margin-top: 36px; width: 84px; height: 38px; }
 }
 
 a { color: inherit; text-decoration: none; }
@@ -97,27 +129,47 @@ mark {
   font-style: normal;
 }
 
-/* Eyebrow label */
+/* Eyebrow label — a label, at label scale. This was 1.75rem (and 3.2rem for the
+   lime variant), because four sections had no <h2> at all and the eyebrow was
+   silently doing heading duty. Those sections have real headings now, so this can
+   sit back down next to .dash-header's 0.68rem where it belongs. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
+  gap: 9px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 1.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--cyan);
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 .eyebrow.center { display: flex; justify-content: center; }
-.eyebrow-lime { color: var(--lime); font-size: clamp(2.2rem, 5vw, 3.2rem); }
+.eyebrow-lime { color: var(--lime); }
 .eyebrow-dot {
-  width: 12px;
-  height: 12px;
+  width: 7px;
+  height: 7px;
   background: var(--cyan);
   display: inline-block;
   border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Focus ring. There was none, so keyboard users got the browser default outline,
+   which is close to invisible against the lime pills and the near-black menu
+   overlay. :focus-visible keeps it off mouse clicks. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+.btn-primary:focus-visible,
+.btn-small:focus-visible,
+.section-next:focus-visible,
+.site-menu-contact:focus-visible {
+  outline-color: var(--text);
 }
 
 /* Dashboard status header */
@@ -519,13 +571,6 @@ body.menu-open { overflow: hidden; }
   transform: translateY(-3px) scale(1.03);
 }
 
-.lede {
-  max-width: 680px;
-  margin: 0 auto;
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  color: var(--text-dim);
-}
-
 /* About */
 .about-grid {
   display: grid;
@@ -533,6 +578,7 @@ body.menu-open { overflow: hidden; }
   gap: 48px;
   align-items: center;
 }
+.about-grid h2 { margin-bottom: 20px; }
 .about-grid p { font-size: 1.1rem; color: var(--text-dim); }
 .about-grid p + p { margin-top: 16px; }
 .photo-frame {
@@ -605,7 +651,7 @@ body.menu-open { overflow: hidden; }
 .timeline-bullets li {
   position: relative;
   padding-left: 18px;
-  color: var(--text-dim);
+  color: var(--text-dim-card);
   font-size: 0.95rem;
 }
 .timeline-bullets li::before {
@@ -630,55 +676,150 @@ body.menu-open { overflow: hidden; }
    own padding would double up the gap at both the top and bottom of the wrapper. */
 #proof { padding: 0; position: relative; }
 #proof > .container { text-align: center; padding-top: 96px; }
+/* The Portfolio wrapper's own headline. This rule already existed but styled a
+   heading that had never been written — the container held a lone "PORTFOLIO"
+   label floating in 96px of empty space. It's bigger than the nested sections'
+   h2s on purpose: it's their parent. */
 #proof > .container h2 { font-size: clamp(2.4rem, 6vw, 4rem); }
 
-/* Stats */
+/* Stats — a 6-column grid so both rows divide evenly: three audience metrics at
+   2 columns each, then the two money metrics at 3 each. */
 .stat-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 20px;
 }
-.stat-card {
+.stat-card, .skill-card {
   background: var(--bg-alt);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 24px;
 }
+.stat-card { grid-column: span 2; }
 .stat-card strong { font-family: 'Sora', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--lime); display: block; }
-.stat-label { color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.stat-label { color: var(--text-dim-card); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; }
 
-#stats .stat-card:nth-child(4) {
-  grid-column: 1 / -1;
+/* Was #stats .stat-card:nth-child(4) — selecting the headline tile by DOM position,
+   which broke the moment a stat was added (and one just was). */
+.stat-card.is-headline {
+  grid-column: span 3;
   text-align: center;
   padding: 32px 24px;
 }
-#stats .stat-card:nth-child(4) strong { font-size: 3.4rem; }
+.stat-card.is-headline strong { font-size: 3.4rem; }
 
 @media (max-width: 700px) {
   .stat-grid { grid-template-columns: 1fr; }
-  #stats .stat-card:nth-child(4) { grid-column: auto; padding: 24px; }
-  #stats .stat-card:nth-child(4) strong { font-size: 2.4rem; }
+  .stat-card, .stat-card.is-headline { grid-column: auto; }
+  .stat-card.is-headline { padding: 24px; }
+  .stat-card.is-headline strong { font-size: 2.4rem; }
 }
+
+/* Skills cards — split out of .stat-card, which was doing double duty as both a
+   number tile and a dash-header/h3/paragraph card. They only ever shared a surface. */
+.skill-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.skill-card p { color: var(--text-dim-card); font-size: 0.95rem; }
 
 /* Featured Content */
 #content h2 { margin-bottom: 32px; max-width: 640px; }
+
+/* Wider than the site's 1120px --max-width, and only here. TikTok's embed has a
+   hard internal floor around 325px: below that it doesn't scale down, it clips its
+   own footer bar mid-word ("...tch more exciting vide"). Three cards each holding
+   325px of embed plus 40px of card padding plus two 28px gaps needs ~1150px of
+   content box, which 1120px minus the container's own 48px padding can't give. A
+   three-up row is the right composition for three portrait clips, so the section
+   gets the extra ~120px instead of dropping to two columns. */
+#content > .container { max-width: 1240px; }
 .content-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 28px;
 }
+/* Scoped to #content — .content-grid is shared with the Skills cards, which have no
+   embed floor and should stay three-up in the standard 1120px container.
+   365px = 325px embed floor + 40px .case-card side padding. */
+#content .content-grid { grid-template-columns: repeat(auto-fit, minmax(365px, 1fr)); }
 .case-card {
   background: var(--bg-alt);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 22px 20px 28px;
   text-align: center;
+  /* Cards previously ended at whatever height their embed happened to settle at,
+     leaving the three "Watch on TikTok" links on three different baselines. */
+  display: flex;
+  flex-direction: column;
 }
 .case-card .dash-header { justify-content: center; }
 .case-card h3 { margin-bottom: 6px; font-size: 1.1rem; }
-.case-meta { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 16px; }
+.case-meta { color: var(--text-dim-card); font-size: 0.85rem; margin-bottom: 16px; }
+
+/* TikTok embed container. Two jobs:
+
+   1. Undo the inline `min-width: 325px` TikTok's copy-paste snippet ships with. A
+      .case-card in this grid offers ~280px of inner width at 1120px, so the embed
+      was wider than its own card at every breakpoint — it overflowed the card
+      border and TikTok's footer bar was clipped mid-word. The floor was worse on
+      mobile: 325 (embed) + 40 (card padding) + 48 (container padding) = 413px
+      minimum, above every common phone width, where body's overflow-x:hidden hid
+      the damage instead of fixing it. The inline style is gone from the markup;
+      min-width:0 here defends against it coming back with a future re-paste.
+
+   2. Reserve the embed's height before it loads. embed.js injects a ~740px-tall
+      iframe well after first paint, and these are the tallest elements on the
+      page — so anything below them shifted down after the fact, which is why a
+      direct #hash link (a media kit gets pasted into DMs constantly) scrolled to
+      a position that no longer existed by the time the page settled. */
+.case-embed {
+  min-height: 740px;
+  margin-bottom: 4px;
+  flex: 1;
+  /* The iframe TikTok injects carries its own ~325px width floor. A grid item's
+     automatic minimum size is its content, so on a small phone that floor pushed
+     the whole track — and with it the page — a few pixels wider than the screen.
+     Clip the iframe here instead of letting it widen the layout; the min-width:0
+     on .case-card below is the other half of that (it lets the track shrink). */
+  overflow: hidden;
+}
+.case-embed .tiktok-embed,
+.case-embed iframe {
+  min-width: 0;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.content-grid > * { min-width: 0; }
+/* On a phone the embed's 325px floor is most of the screen, so claw back the
+   padding it needs rather than letting TikTok clip itself: 390px viewport - 24px
+   container - 16px card = 350px of embed. */
+@media (max-width: 480px) {
+  .case-embed { min-height: 640px; }
+  #content > .container { padding-inline: 12px; }
+  .case-card { padding-inline: 8px; }
+  /* Back to a plain single column, for the Skills grid as well as Featured Content.
+     A `minmax(Npx, 1fr)` track cannot shrink below its own minimum, so on a viewport
+     narrower than that minimum plus the container padding the grid pushes the page
+     wider than the screen — body's overflow-x:hidden then quietly crops it. That bit
+     Skills at 360px (300px track + 48px padding = 348px in a 345px viewport) as well
+     as Featured Content's 365px track. Small phones lose a few pixels off TikTok's
+     own footer bar instead, which is the better trade than a cropped page.
+
+     Both selectors are id-scoped so this actually beats the `#content .content-grid`
+     rule above — a bare `.content-grid` here would lose on specificity no matter
+     that it comes later or sits in a media query. */
+  #content .content-grid,
+  #skills .content-grid { grid-template-columns: 1fr; }
+}
+
+.content-footnote {
+  margin-top: 20px;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-style: italic;
+}
 .case-fallback-link {
   display: inline-block;
+  align-self: center; /* .case-card is a flex column now — don't stretch full width */
   margin-top: 14px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
@@ -693,7 +834,10 @@ body.menu-open { overflow: hidden; }
 }
 .case-fallback-link:hover { background: rgba(200, 245, 62, 0.1); border-color: rgba(200, 245, 62, 0.5); }
 
-/* Brands / Agencies pills */
+/* Brands / Agencies pills. Left-aligned at 640px to match the left-aligned eyebrow
+   and h2 directly above them — deliberately narrower than the full-width
+   featured-content grid, since a pill stretched to 1120px is mostly empty middle
+   between its logo and its badge. Only #proof's own headline is centred. */
 .pill-row { display: flex; flex-direction: column; gap: 18px; max-width: 640px; }
 .pill {
   display: flex;
@@ -730,13 +874,13 @@ body.menu-open { overflow: hidden; }
 .pill-logo.has-logo { background: #fff; border-color: rgba(255, 255, 255, 0.4); }
 .pill-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; box-sizing: border-box; }
 .pill-logo img.fill { object-fit: cover; padding: 0; }
-.pill-text { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0; }
+.pill-text { display: flex; flex-direction: column; gap: 8px; flex: 1 1 160px; min-width: 0; }
 .pill-name { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.35rem; }
 .pill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--line);
-  color: var(--text-dim);
+  color: var(--text-dim-card);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -784,14 +928,22 @@ body.menu-open { overflow: hidden; }
 }
 .quote-attr { margin-top: 16px; font-size: 0.9rem; color: var(--text-dim); }
 
-/* Contact — folded into the bottom of #work-together as the page's one closing
-   CTA (used to be its own 130vh section duplicating "let's connect" right after
-   the Work Together cards' own CTA button; merged so there's a single ask). */
-.work-cta { margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--line); }
+/* Contact — the page's one closing ask. The .work-cta wrapper that used to sit
+   here carried a border-top dividing the removed rate tiers from this CTA; with
+   the tiers gone it was a rule separating nothing from anything, so it's dropped
+   along with the class. */
+/* #contact is a flex column whose children are .container and .site-footer. Auto
+   block margins on the container centre the closing CTA in whatever space is left
+   over, keeping the footer pinned to the bottom of the section. */
+#contact > .container { margin-block: auto; }
 .contact-inner { text-align: center; }
-.contact-inner .eyebrow { font-size: 1.1rem; margin-bottom: 28px; }
 .contact-inner h2 { margin-bottom: 20px; font-size: clamp(2.2rem, 5.5vw, 3.4rem); }
-.contact-inner p { color: var(--text-dim); margin-bottom: 44px; font-size: clamp(1.05rem, 2vw, 1.2rem); }
+.contact-inner p {
+  color: var(--text-dim);
+  margin: 0 auto 44px;
+  max-width: 540px;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+}
 .contact-inner .btn { padding: 20px 40px; font-size: 1.15rem; }
 .site-footer { text-align: center; padding: 56px 0 8px; color: var(--text-dim); font-size: 0.85rem; }
 
@@ -816,9 +968,6 @@ body.menu-open { overflow: hidden; }
 }
 .email-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
-@media (max-width: 700px) {
-  .work-cta { margin-top: 48px; padding-top: 36px; }
-}
 
 /* Mobile polish */
 @media (max-width: 480px) {
