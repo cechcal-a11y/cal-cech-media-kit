@@ -41,7 +41,12 @@ h1, h2, h3 {
   padding: 0 24px;
 }
 
-section { padding: 96px 0; scroll-margin-top: 96px; }
+/* scroll-margin-top must stay <= the fixed header's own height (~83px): a
+   section that ends in .section-next (the sticky lime "next" arrow) clamps
+   that arrow flush against the section's bottom edge once scrolled past, so
+   landing a jump-to-section any lower than the header leaves the previous
+   section's arrow poking out below it, overlapping the new section's title. */
+section { padding: 96px 0; scroll-margin-top: 80px; }
 
 /* One-section-at-a-time nav: #story/#timeline/#skills/#work-together fill the
    viewport so navigating to a section never shows the next one peeking in below;
@@ -50,14 +55,14 @@ section { padding: 96px 0; scroll-margin-top: 96px; }
    its natural (taller) height since it wraps #stats/#content/#brands/#agencies as
    one continuous unit — its own next-arrow just anchors to the bottom of all that. */
 #story, #timeline, #skills, #work-together {
-  min-height: calc(100vh - 96px);
+  min-height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
 }
 @media (max-width: 480px) {
-  #story, #timeline, #skills, #work-together { min-height: calc(100svh - 96px); }
+  #story, #timeline, #skills, #work-together { min-height: calc(100svh - 80px); }
 }
 /* Sticky, not absolute: section height is content-dependent (a 3-entry Timeline
    or 4-card Work Together grid can exceed one viewport), so pinning this to the
@@ -106,6 +111,7 @@ mark {
   margin-bottom: 24px;
 }
 .eyebrow.center { display: flex; justify-content: center; }
+.eyebrow-lime { color: var(--lime); font-size: clamp(2.2rem, 5vw, 3.2rem); }
 .eyebrow-dot {
   width: 12px;
   height: 12px;
@@ -622,6 +628,8 @@ body.menu-open { overflow: hidden; }
    #brands/#agencies, each already carrying full section padding; keeping #proof's
    own padding would double up the gap at both the top and bottom of the wrapper. */
 #proof { padding: 0; position: relative; }
+#proof > .container { text-align: center; padding-top: 96px; }
+#proof > .container h2 { font-size: clamp(2.4rem, 6vw, 4rem); }
 
 /* Stats */
 .stat-grid {
@@ -786,6 +794,27 @@ body.menu-open { overflow: hidden; }
 .contact-inner p { color: var(--text-dim); margin-bottom: 44px; font-size: clamp(1.05rem, 2vw, 1.2rem); }
 .contact-inner .btn { padding: 20px 40px; font-size: 1.15rem; }
 .site-footer { text-align: center; padding: 56px 0 8px; color: var(--text-dim); font-size: 0.85rem; }
+
+/* Email-copied confirmation toast — see script.js's mailto click handler. */
+.email-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 12px);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  padding: 12px 22px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 300;
+}
+.email-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
 @media (max-width: 700px) {
   .work-cta { margin-top: 48px; padding-top: 36px; }

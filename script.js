@@ -155,6 +155,48 @@
     requestAnimationFrame(step);
   }
 
+  // "Email Me" is a mailto: link — on a device with no default mail client
+  // configured, clicking it just does nothing visible, which reads as broken.
+  // Copy the address to the clipboard too, so the click always leaves the
+  // visitor with a working fallback and a visible confirmation either way.
+  // Uses the legacy execCommand copy (a hidden textarea + select + copy),
+  // not navigator.clipboard.writeText — that async API can trigger a
+  // browser permission prompt on some setups, which is worse than doing
+  // nothing; execCommand is synchronous and prompt-free on a real click.
+  var emailLink = document.querySelector('a[href^="mailto:"]');
+  var emailToast, emailToastTimeout;
+  function showEmailToast(email) {
+    if (!emailToast) {
+      emailToast = document.createElement('div');
+      emailToast.className = 'email-toast';
+      emailToast.setAttribute('role', 'status');
+      document.body.appendChild(emailToast);
+    }
+    emailToast.textContent = 'Copied ' + email + ' to clipboard';
+    emailToast.classList.add('is-visible');
+    clearTimeout(emailToastTimeout);
+    emailToastTimeout = setTimeout(function () {
+      emailToast.classList.remove('is-visible');
+    }, 2600);
+  }
+  if (emailLink) {
+    emailLink.addEventListener('click', function () {
+      var email = emailLink.getAttribute('href').replace('mailto:', '').split('?')[0];
+      var scratch = document.createElement('textarea');
+      scratch.value = email;
+      scratch.setAttribute('readonly', '');
+      scratch.style.position = 'fixed';
+      scratch.style.top = '-1000px';
+      document.body.appendChild(scratch);
+      scratch.select();
+      scratch.setSelectionRange(0, email.length);
+      try {
+        if (document.execCommand('copy')) showEmailToast(email);
+      } catch (e) {}
+      document.body.removeChild(scratch);
+    });
+  }
+
   var statsSection = document.querySelector('#stats');
   if (statsSection) {
     var countObserver = new IntersectionObserver(
