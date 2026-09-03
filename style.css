@@ -534,6 +534,7 @@ body.menu-open { overflow: hidden; }
   align-items: center;
 }
 .about-grid p { font-size: 1.1rem; color: var(--text-dim); }
+.about-grid p + p { margin-top: 16px; }
 .photo-frame {
   width: 220px;
   height: 220px;
